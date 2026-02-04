@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+*{
+    box-sizing:border-box;
+}
+
+
 body{
     display:flex;
     align-items:center;
@@ -11,56 +16,57 @@ body{
 #calculator{
     display : flex;
     flex-direction : column;
-    gap : 5px;
+    gap : 8px;
     background-color:#060505;
-    border-radius:10px;
+    border-radius:20px;
     margin:0px;
-    padding:10px;
-    height:500px;
-    width:300px;
+    padding:15px;
+    width: 90vw;
+    max-width:350px;
+    aspect-ratio:3/5;
     font-family:"Montserrat";
     font-weight:600;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.9);
 }
 
 .row{
     display:flex;
+    flex:1;
     flex-direction:row;
-    gap : 5px;
+    gap : 8px;
+    width:100%;
 }
 
 .btn {
     color:aliceblue;
     background-color:#242222;
-    border-radius: 10px;
+    border-radius: 12px;
     margin:0px;
     padding:10px;
-    height:50px;
-    width:50px;
     display:flex;
     justify-content:center;
     align-items:center;
+    font-size:1.2rem;
+    cursor:pointer;
+    flex:1;
 }
 
 #display{
-    margin:0px;
-    padding:10px;
+    padding: 15px;
     height:100px;
-    width:280px;
+    width:100%;
     color:aliceblue;
     font-weight:200;
-    font-size:30px;
+    font-size:2.5rem;
     display:flex;
+    flex:1.5;
     flex-direction:column;
     justify-content:flex-end; /*aligns to the bottom*/
     align-items:flex-end; /*align items to the right*/
+    overflow:hidden; /* keep overflowing numbers inside box*/
 }
 
 #equal{
-    color:aliceblue;
-    background-color:#242222;
-    border-radius: 10px;
-    margin:0px;
-    padding:10px;
-    height:50px;
-    width:125px;
+    border-radius: 12px;
+    flex:2.5;
 }
