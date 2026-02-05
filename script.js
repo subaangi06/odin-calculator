@@ -55,23 +55,34 @@ let operator = "";
 
 numbers.forEach((number) => {
     number.addEventListener("click", () => {
-        value = number.textContent;
+        if (display.textContent==calculatedVal && newVal ==""){
+            display.textContent = "";
+        }
+
+        let value = number.textContent;
         newVal +=value;
-        display.textContent=newVal;
+        display.textContent = newVal;
     })
 });
 
 operatorInputs.forEach((operatorIn) => {
     operatorIn.addEventListener("click", () => {
-        operator = operatorIn.textContent;
-        if (operator =="×"){
-            operator = "*";
-        } else if (operator =="÷"){
-            operator = "/";
+        if (calculatedVal !== "" && newVal !== "" && operator !== ""){
+            let result = operate(operator, calculatedVal, newVal);
+            display.textContent = result;
+            calculatedVal = result;
+            newVal = "";
+        } else if (newVal !== ""){
+            calculatedVal = newVal;
+            display.textContent = newVal;
+            newVal = "";
         }
-        calculatedVal = newVal;
-        newVal = ""; //input is cleared after operator entered, so if equal is pressed right after operator, we get NaN
-    })
+
+        operator = operatorIn.textContent;
+        if (operator =="×") operator = "*";
+        if (operator =="÷") operator = "/";
+
+    });
 });
 
 
@@ -139,4 +150,28 @@ percent.addEventListener("click", () => {
     let result = Number(newVal)/100;
     newVal = result.toString();
     display.textContent = newVal;
+});
+
+window.addEventListener("keydown", (e)=> {
+    let key = e.key;
+
+    if (key === "Enter" || key === "="){
+        equal.click();
+    } else if  (key==="Escape"){
+        clear.click();
+    } else if  (key==="Backspace"){
+        backspace.click();
+    } else if (key === "*"){
+        const multBtn =  Array.from(operatorInputs).find(btn => btn.textContent ==="×" );
+        if (multBtn) multBtn.click();
+    } else if (key === "/") {
+        const divBtn = Array.from(operatorInputs).find(btn => btn.textContent === "÷");
+        if (divBtn){
+            e.preventDefault(); //prevent browser from opening search box, which is normally done by / key
+            divBtn.click();
+        } 
+    } else {
+            const button = Array.from(buttons).find(btn => btn.textContent ===key);
+            if (button) button.click();
+        }
 });
