@@ -7,10 +7,12 @@
 
 body{
     display:flex;
+    flex-direction:column;
     align-items:center;
     justify-content: center;
     height:100vh;
     background-color:#cccccc;
+    gap:10px;
 }
 
 #calculator{
@@ -93,3 +95,8 @@ body{
     flex:2.5;
 }
 
+.text{
+    font-family:Montserrat;
+    font-size:0.8rem;
+
+}
