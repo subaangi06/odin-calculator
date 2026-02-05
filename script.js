@@ -7,31 +7,32 @@ const decimal = document.querySelector("#decimal");
 const clear = document.querySelector("#ac");
 const backspace = document.querySelector("#del");
 const buttons = document.querySelectorAll(".btn");
+const percent = document.querySelector("#percent");
 
 //----------------------arithmetic operations------------------
 const add = function(num1, num2){
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
     return num1+num2;
-}
+};
 
 const subtract = function(num1, num2){
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
     return num1-num2;
-}
+};
 
 const multiply = function(num1,num2){
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
     return num1*num2;
-}
+};
 
 const divide = function(num1, num2){
     num1 = parseFloat(num1);
     num2 = parseFloat(num2);
     return num1/num2;
-}
+};
 
 const operate = function(operator, num1, num2){
     switch (operator){
@@ -44,7 +45,7 @@ const operate = function(operator, num1, num2){
         case "/":
             return divide(num1,num2);
     }
-}
+};
 
 //--------------functionalities----------------
 
@@ -85,14 +86,16 @@ equal.addEventListener("click", () => {
         display.textContent = "did you just divide by 0";
         newVal = "";
     } else {
-        if(result.toString().split("").length > 13){
-            result = result.toString().split("").slice(0,13).join("");
+        if(result.toString().split("").length > 11){
+            result = Number(result.toPrecision(9));
         }
         newVal = result;
         display.textContent=newVal;
+        operator =  "";
+        calculatedVal="";
     }
 
-})
+});
 
 clear.addEventListener("click", () => {
     display.textContent = "0";
@@ -100,14 +103,14 @@ clear.addEventListener("click", () => {
     newVal = "";
     operator = "";
 
-})
+});
 
 backspace.addEventListener("click", () => {
     displayContent = display.textContent;
     displayContent = displayContent.split("").slice(0,-1).join("");
     newVal = displayContent;
     display.textContent = displayContent;
-})
+});
 
 buttons.forEach((button) => {
     button.addEventListener("mouseenter", () => {
@@ -116,7 +119,7 @@ buttons.forEach((button) => {
     button.addEventListener("mouseleave", () => {
         button.style.backgroundColor = "#242222";
     })
-})
+});
 
 decimal.addEventListener("click", () => {
     if (display.textContent.includes(".")){
@@ -129,5 +132,11 @@ decimal.addEventListener("click", () => {
     }
     display.textContent = newVal;
 
-})
+});
 
+percent.addEventListener("click", () => {
+    if (newVal  === "") return;
+    let result = Number(newVal)/100;
+    newVal = result.toString();
+    display.textContent = newVal;
+});
