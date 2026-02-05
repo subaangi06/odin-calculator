@@ -8,6 +8,7 @@ const clear = document.querySelector("#ac");
 const backspace = document.querySelector("#del");
 const buttons = document.querySelectorAll(".btn");
 const percent = document.querySelector("#percent");
+const history = document.querySelector("#current-history");
 
 //----------------------arithmetic operations------------------
 const add = function(num1, num2){
@@ -49,7 +50,7 @@ const operate = function(operator, num1, num2){
 
 //--------------functionalities----------------
 
-let calculatedVal = ""; //value entered right before operator
+let calculatedVal = "0"; //value entered right before operator
 let newVal = ""; //value currently being entered
 let operator = "";
 
@@ -71,16 +72,17 @@ operatorInputs.forEach((operatorIn) => {
             let result = operate(operator, calculatedVal, newVal);
             display.textContent = result;
             calculatedVal = result;
-            newVal = "";
         } else if (newVal !== ""){
             calculatedVal = newVal;
-            display.textContent = newVal;
-            newVal = "";
         }
 
         operator = operatorIn.textContent;
         if (operator =="×") operator = "*";
         if (operator =="÷") operator = "/";
+        if (newVal !== ""){
+            history.textContent += newVal + operatorIn.textContent;
+        }
+        newVal = ""
 
     });
 });
@@ -94,7 +96,7 @@ equal.addEventListener("click", () => {
     if (newVal === "" || operator ==="") return; //do nothing if operator or number is not input after operator but equal button is pressed
     let result= operate(operator, calculatedVal, newVal);
     if (result === Infinity){
-        display.textContent = "did you just divide by 0";
+        display.textContent = "no doing that";
         newVal = "";
     } else {
         if(result.toString().split("").length > 11){
@@ -104,6 +106,10 @@ equal.addEventListener("click", () => {
         display.textContent=newVal;
         operator =  "";
         calculatedVal="";
+        history.textContent = history.textContent + "=" + result;
+        setTimeout (() => {
+            history.textContent = ""
+        },500);
     }
 
 });
@@ -113,12 +119,19 @@ clear.addEventListener("click", () => {
     calculatedVal = "";
     newVal = "";
     operator = "";
+    history.textContent = "";
 
 });
 
 backspace.addEventListener("click", () => {
     displayContent = display.textContent;
     displayContent = displayContent.split("").slice(0,-1).join("");
+    if (displayContent === ""){
+        display.textContent = "0";
+        newVal = "";
+        return;
+    }
+    
     newVal = displayContent;
     display.textContent = displayContent;
 });

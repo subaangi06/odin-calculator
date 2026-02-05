@@ -51,20 +51,42 @@ body{
     flex:1;
 }
 
-#display{
+#screen{
     padding: 15px;
     height:50px;
     width:100%;
+    display:flex;
+    flex-direction:column;
+    flex:1.5;
+    
+}
+
+#current-history{
+    display:flex;
+    flex:1;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-end;
+    overflow:hidden;
+    font-weight:100;
+    font-size:1rem;
+    opacity:0.6;
     color:aliceblue;
+}
+
+#display{
     font-weight:200;
     font-size:2.5rem;
     display:flex;
-    flex:1.5;
+    flex:2;
     flex-direction:column;
     justify-content:flex-end; /*aligns to the bottom*/
     align-items:flex-end; /*align items to the right*/
     overflow:hidden; /* keep overflowing numbers inside box*/
+    color:aliceblue;
 }
+
+
 
 #equal{
     border-radius: 12px;
